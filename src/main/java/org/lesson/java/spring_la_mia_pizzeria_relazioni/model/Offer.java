@@ -11,9 +11,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -33,12 +34,13 @@ public class Offer {
   private String description;
 
   @NotNull
-  // @Size(max = 50, message = "rate max 50%")
+  @Min(value = 1, message = "Lo sconto deve essere almeno 1%")
+  @Max(value = 50, message = "Lo sconto non può superare il 50%")
   @Column(name = "rate", nullable = false)
   private Integer rate;
 
   @NotNull(message = "Date cannot Null")
-  @PastOrPresent(message = "Date cannot in the future")
+  @FutureOrPresent(message = "Date cannot in the past")
   @Column(name = "start_offer", nullable = false)
   private LocalDate startOffer;
 

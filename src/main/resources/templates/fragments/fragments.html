@@ -54,7 +54,13 @@
       </span>
       <img src="https://picsum.photos/200/200" class="card-img-top" alt="https://picsum.photos/200/200">
       <div class="card-body">
-        <h5 class="card-title" th:text="*{name}"></h5>
+        <section>
+          <h5 th:unless="*{hasOffers()}" class="card-title"
+            th:text="|*{name} - *{#numbers.formatDecimal(price, 1, 2)} €|"></h5>
+          <h5 th:if="*{hasOffers()}" class="card-title"
+            th:text="|*{name} - *{#numbers.formatDecimal(discountedPrice, 1, 2)} €|">
+          </h5>
+        </section>
         <p class="card-text" th:text="*{description}" />
         <form class="d-flex justify-content-around" method="post" th:action="@{/pizze/delete/{id}(id=*{id})}">
           <a th:href="@{/pizze/{id}(id=${pizza.id})}" class="btn btn-primary">Mostra</a>

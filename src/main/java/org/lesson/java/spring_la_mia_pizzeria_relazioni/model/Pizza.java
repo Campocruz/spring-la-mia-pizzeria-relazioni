@@ -43,6 +43,21 @@ public class Pizza {
   @OneToMany(mappedBy = "pizza")
   private List<Offer> offers;
 
+  public boolean hasOffers() {
+    return offers != null && !offers.isEmpty();
+  }
+
+  public float getDiscountedPrice() {
+    if (!hasOffers()) {
+      return price;
+    }
+    int maxRate = offers.stream()
+        .mapToInt(Offer::getRate)
+        .max()
+        .orElse(0);
+    return price - (price * maxRate / 100f); // 100f → divisione decimale
+  }
+
   public List<Offer> getOffers() {
     return offers;
   }
