@@ -29,10 +29,10 @@
             <a class=" nav-link" th:href="@{/pizze}">Pizze</a>
           </li>
         </ul>
-        <div class="btn btn-primary">
+        <div class="btn btn-primary" th:if="${page == 'pizze'}">
           <a class=" nav-link" th:href="@{/pizze/create}">Nuova Pizza</a>
         </div>
-        <div class="btn btn-secondary">
+        <div class="btn btn-secondary" th:if="${page == 'pizzaDetail'}">
           <a class=" nav-link" th:href="@{/offers/create}">Nuova Offerta</a>
         </div>
         <form class="d-flex" role="search" method="GET" th:action="@{/pizze/cerca}">

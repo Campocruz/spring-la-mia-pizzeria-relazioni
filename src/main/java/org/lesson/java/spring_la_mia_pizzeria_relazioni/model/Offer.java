@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -32,7 +33,7 @@ public class Offer {
   private String description;
 
   @NotNull
-  @Size(max = 50, message = "rate max 50%")
+  // @Size(max = 50, message = "rate max 50%")
   @Column(name = "rate", nullable = false)
   private Integer rate;
 
@@ -42,7 +43,7 @@ public class Offer {
   private LocalDate startOffer;
 
   @NotNull(message = "Date cannot Null")
-  @PastOrPresent(message = "Date cannot in the future")
+  @FutureOrPresent(message = "Date cannot in the past")
   @Column(name = "end_offer", nullable = false)
   private LocalDate endOffer;
 

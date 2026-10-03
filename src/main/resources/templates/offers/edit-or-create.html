@@ -16,14 +16,19 @@
     <div class="container">
 
       <section>
-        <div class="row mt-3">
-          <h1>Crea offerta per la pizza </h1>
-        </div>
+        <th:block>
+          <div class="row mt-3">
+            <h1>Crea offerta per la pizza "[[${offer.pizza.name}]]" </h1>
+          </div>
+        </th:block>
       </section>
 
       <section>
         <form th:action="@{/offers/create}" method="post">
           <div class="row" th:object="${offer}">
+
+            <input type="hidden" th:field="*{pizza.id}">
+
             <div class="col-12">
               <label for="title">Titolo Offerta</label>
               <input id="title" type="text" class="form-control" th:field="*{title}" th:errorClass="is-invalid">
@@ -44,7 +49,7 @@
               </div>
             </div>
             <div class="col-12">
-              <label for="rate">Sconto</label>
+              <label for="rate">Sconto in %</label>
               <input id="rate" type="number" class="form-control" th:field="*{rate}" th:errorClass="is-invalid">
               <div class="invalid-feedback" th:if="${#fields.hasErrors('rate')}">
                 <ul>

@@ -95,12 +95,13 @@ public class PizzeriaController {
     return "redirect:/pizze";
   }
 
-  @GetMapping("/{id}/offer")
-  public String offer(@PathVariable Integer id, Model model) {
+  @GetMapping("/{id}/offers")
+  public String offer(@PathVariable("id") Integer id, Model model) {
     Offer offer = new Offer();
-    model.addAttribute(pizzaRepository.findById(id).get());
+    offer.setPizza(pizzaRepository.findById(id).get());
+    model.addAttribute("offer", offer);
 
-    return "offer/edit-or-create";
+    return "offers/edit-or-create";
   }
 
 }
