@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.lesson.java.spring_la_mia_pizzeria_relazioni.model.Offer;
 import org.lesson.java.spring_la_mia_pizzeria_relazioni.model.Pizza;
+import org.lesson.java.spring_la_mia_pizzeria_relazioni.repositorys.OfferRepository;
 import org.lesson.java.spring_la_mia_pizzeria_relazioni.repositorys.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,9 @@ public class PizzeriaController {
 
   @Autowired
   private PizzaRepository pizzaRepository;
+
+  @Autowired
+  private OfferRepository offerRepository;
 
   @GetMapping
   public String index(Model model) {
@@ -89,6 +93,12 @@ public class PizzeriaController {
 
   @PostMapping("/delete/{id}")
   public String delete(@PathVariable("id") Integer id) {
+
+    Pizza pizza = pizzaRepository.findById(id).get();
+
+    for (Offer offerToDelete : pizza.getOffers()) {
+      offerRepository.delete(offerToDelete);
+    }
 
     pizzaRepository.deleteById(id);
 

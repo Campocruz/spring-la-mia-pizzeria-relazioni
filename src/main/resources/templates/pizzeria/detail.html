@@ -69,7 +69,12 @@
                   <td>[[*{startOffer}]]</td>
                   <td>[[*{endOffer}]]</td>
                   <td>
-                    <a type="button" class="btn btn-secondary btn-sm" th:href="...">Modifica</a>
+                    <form class="d-flex justify-content-around" method="post"
+                      th:action="@{/offers/delete/{id}(id=*{id})}">
+                      <a type="button" class="btn btn-secondary btn-sm"
+                        th:href="@{/offers/edit/{id}(id=*{id})}">Modifica</a>
+                      <button class="btn btn-danger btn-sm" type="submit">Elimina</button>
+                    </form>
                   </td>
                 </tr>
               </tbody>

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,13 +21,6 @@ public class OfferController {
   @Autowired
   private OfferRepository offerRepository;
 
-  @GetMapping("/create")
-  public String create(Model model) {
-
-    model.addAttribute("offer", new Offer());
-    return "offers/edit-or-create";
-  }
-
   @PostMapping("/create")
   public String store(@Valid @ModelAttribute("offer") Offer formOffer, BindingResult bindingResults, Model model) {
 
@@ -35,6 +29,34 @@ public class OfferController {
     }
 
     offerRepository.save(formOffer);
-    return "redirect:/pizze";
+    return "redirect:/pizze/" + formOffer.getPizza().getId();
+  }
+
+  @GetMapping("/edit/{id}")
+  private String edit(@PathVariable Integer id, Model model) {
+    Offer offer = offerRepository.findById(id).get();
+    model.addAttribute("offer", offer);
+    model.addAttribute("edit", true);
+
+    return "offers/edit-or-create";
+  }
+
+  @PostMapping("/edit/{id}")
+  private String update(@Valid @ModelAttribute("offer") Offer formOffer, BindingResult bindingResults, Model model) {
+
+    if (bindingResults.hasErrors()) {
+      return "offers/edit-or-create";
+    }
+    offerRepository.save(formOffer);
+    return "redirect:/pizze/" + formOffer.getPizza().getId();
+  }
+
+  @PostMapping("/delete/{id}")
+  public String delete(@PathVariable("id") Integer id) {
+
+    Offer offer = offerRepository.findById(id).get();
+    offerRepository.deleteById(id);
+
+    return "redirect:/pizze/" + offer.getPizza().getId();
   }
 }

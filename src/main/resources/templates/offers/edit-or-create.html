@@ -18,14 +18,15 @@
       <section>
         <th:block>
           <div class="row mt-3">
-            <h1>Crea offerta per la pizza "[[${offer.pizza.name}]]" </h1>
+            <h1 th:unless="${edit}">Crea offerta per la pizza "[[${offer.pizza.name}]]" </h1>
+            <h1 th:if="${edit}">Modifica offerta per la pizza "[[${offer.pizza.name}]]" </h1>
           </div>
         </th:block>
       </section>
 
-      <section>
-        <form th:action="@{/offers/create}" method="post">
-          <div class="row" th:object="${offer}">
+      <section th:object="${offer}">
+        <form th:action="${edit} ? @{|/offers/edit/*{id}|} : @{/offers/create}" method="post">
+          <div class="row">
 
             <input type="hidden" th:field="*{pizza.id}">
 
@@ -77,7 +78,8 @@
               </div>
             </div>
             <div class="col-12">
-              <button type="submit" class="btn btn-primary">Crea</button>
+              <button th:unless="${edit}" type="submit" class="btn btn-primary">Crea</button>
+              <button th:if="${edit}" type="submit" class="btn btn-primary">Modifica</button>
             </div>
           </div>
         </form>

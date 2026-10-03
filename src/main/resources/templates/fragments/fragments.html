@@ -49,7 +49,7 @@
 
   <div class=" col-3 mt-2" th:fragment="card_list(pizze)" th:each="pizza : ${pizze}">
     <div class=" card position-relative" style="width: 18rem;" th:object="${pizza}">
-      <span th:if="..." class="badge bg-success position-absolute top-0 start-0 m-2">
+      <span th:if="*{offers.size() > 0}" class="badge bg-success position-absolute top-0 start-0 m-2">
         In offerta
       </span>
       <img src="https://picsum.photos/200/200" class="card-img-top" alt="https://picsum.photos/200/200">
