@@ -7,6 +7,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMax;
@@ -42,6 +45,18 @@ public class Pizza {
 
   @OneToMany(mappedBy = "pizza")
   private List<Offer> offers;
+
+  public List<Ingredient> getIngredients() {
+    return ingredients;
+  }
+
+  public void setIngredients(List<Ingredient> ingredients) {
+    this.ingredients = ingredients;
+  }
+
+  @ManyToMany()
+  @JoinTable(name = "pizza_ingredient", joinColumns = @JoinColumn(name = "pizza_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+  private List<Ingredient> ingredients;
 
   public boolean hasOffers() {
     return offers != null && !offers.isEmpty();
