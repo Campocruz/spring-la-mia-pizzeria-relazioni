@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <div th:insert="~{ fragments/fragments :: style }" />
+  <title>Home Page</title>
+</head>
+
+<body>
+
+  <header>
+    <div th:insert="~{ fragments/fragments :: navbar }" />
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="row text-center mt-3" th:object="${pizza}">
+        <div class="col-6">
+          <img src="https://picsum.photos/300/300" class="card-img-top" alt="https://picsum.photos/200/200">
+        </div>
+        <div class="col-6">
+          <h2 th:text="*{name}" />
+          <hr>
+          <ul class="">
+            <li class="text-start" th:text="*{description}" />
+            <li class="text-start" th:text="|*{price} &euro;|" />
+          </ul>
+          <form class="d-flex justify-content-around" method="post" th:action="@{/pizze/delete/{id}(id=*{id})}">
+            <a class="btn btn-primary" th:href="@{/pizze/edit/{id}(id=*{id})}">
+              Modifica
+            </a>
+            <button class="btn btn-danger" type="submit">Elimina</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer></footer>
+
+</body>
+
+<div th:insert="~{ fragments/fragments :: script }" />
+
+</html>
