@@ -1,6 +1,7 @@
 package org.lesson.java.spring_la_mia_pizzeria_relazioni.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.lesson.java.spring_la_mia_pizzeria_relazioni.model.Pizza;
 import org.lesson.java.spring_la_mia_pizzeria_relazioni.repositorys.PizzaRepository;
@@ -18,14 +19,28 @@ public class PizzeriaService {
     return pizzaRepository.findAll();
   }
 
-  // Find by ID pizza
+  // Find by Id
+  public Optional<Pizza> findByIdPizza(Integer id) {
+    return pizzaRepository.findById(id);
+  }
+
+  // Exist By id
+  public boolean existPizzaById(Integer id) {
+    if (pizzaRepository.findById(id).isEmpty()) {
+      return false;
+    }
+    return true;
+  }
+
+  // Get by ID pizza
   public Pizza getByIdPizza(Integer id) {
-    return pizzaRepository.findById(id).get();
+    Optional<Pizza> pizza = findByIdPizza(id);
+    return pizza.get();
   }
 
   // Save pizza
-  public void savePizza(Pizza formPizza) {
-    pizzaRepository.save(formPizza);
+  public Pizza savePizza(Pizza formPizza) {
+    return pizzaRepository.save(formPizza);
   }
 
   // Delete pizza
@@ -35,7 +50,8 @@ public class PizzeriaService {
 
   // Delete pizza by ID
   public void deleteByIdPizza(Integer id) {
-    pizzaRepository.deleteById(id);
+    Optional<Pizza> deletePizza = findByIdPizza(id);
+    pizzaRepository.delete(deletePizza.get());
   }
 
   // Metodi extra

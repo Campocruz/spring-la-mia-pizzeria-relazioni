@@ -2,6 +2,9 @@ package org.lesson.java.spring_la_mia_pizzeria_relazioni.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,6 +47,7 @@ public class Pizza {
   private float price;
 
   @OneToMany(mappedBy = "pizza")
+  @JsonManagedReference
   private List<Offer> offers;
 
   public List<Ingredient> getIngredients() {
@@ -56,6 +60,7 @@ public class Pizza {
 
   @ManyToMany()
   @JoinTable(name = "pizza_ingredient", joinColumns = @JoinColumn(name = "pizza_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+  @JsonIgnoreProperties("pizze")
   private List<Ingredient> ingredients;
 
   public boolean hasOffers() {
