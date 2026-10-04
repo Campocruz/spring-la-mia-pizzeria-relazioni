@@ -67,7 +67,7 @@ public class Pizza {
       return price;
     }
     int maxRate = offers.stream()
-        .mapToInt(Offer::getRate)
+        .mapToInt(offer -> offer.getRate())
         .max()
         .orElse(0);
     return price - (price * maxRate / 100f); // 100f → divisione decimale
