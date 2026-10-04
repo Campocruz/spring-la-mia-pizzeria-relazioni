@@ -53,7 +53,7 @@ public class IngredientController {
 
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
-    Ingredient ingredient = ingredientsService.findByIdIngredinet(id);
+    Ingredient ingredient = ingredientsService.getByIdIngredinet(id);
     model.addAttribute("ingredient", ingredient);
     model.addAttribute("edit", true);
 

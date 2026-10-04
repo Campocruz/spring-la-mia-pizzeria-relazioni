@@ -19,7 +19,7 @@ public class PizzeriaService {
   }
 
   // Find by ID pizza
-  public Pizza findByIdPizza(Integer id) {
+  public Pizza getByIdPizza(Integer id) {
     return pizzaRepository.findById(id).get();
   }
 
@@ -41,7 +41,7 @@ public class PizzeriaService {
   // Metodi extra
 
   // Find pizza by containing ingore case
-  public List<Pizza> findPizzaByContaining(String value) {
+  public List<Pizza> getPizzeByContaining(String value) {
     return pizzaRepository.findByNameContainingIgnoreCase(value);
   }
 

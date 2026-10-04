@@ -19,7 +19,7 @@ public class IngredientsService {
   }
 
   // Find by ID pizza
-  public Ingredient findByIdIngredinet(Integer id) {
+  public Ingredient getByIdIngredinet(Integer id) {
     return ingredientRepository.findById(id).get();
   }
 

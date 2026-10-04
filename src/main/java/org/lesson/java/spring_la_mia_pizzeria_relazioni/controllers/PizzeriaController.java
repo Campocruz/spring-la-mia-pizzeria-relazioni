@@ -45,7 +45,7 @@ public class PizzeriaController {
   @GetMapping("/cerca")
   public String cerca(@RequestParam(value = "value", defaultValue = "") String value, Model model) {
 
-    List<Pizza> pizze = pizzeriaService.findPizzaByContaining(value);
+    List<Pizza> pizze = pizzeriaService.getPizzeByContaining(value);
     model.addAttribute("pizze", pizze);
     return "pizzeria/index";
   }
@@ -54,7 +54,7 @@ public class PizzeriaController {
   public String show(@PathVariable String id, Model model) {
 
     int index = Integer.parseInt(id);
-    model.addAttribute("pizza", pizzeriaService.findByIdPizza(index));
+    model.addAttribute("pizza", pizzeriaService.getByIdPizza(index));
 
     return "pizzeria/detail";
   }
@@ -83,7 +83,7 @@ public class PizzeriaController {
   public String edit(@PathVariable("id") Integer id, Model model) {
 
     model.addAttribute("ingredients", ingredientsService.findAllIngredients());
-    model.addAttribute("pizza", pizzeriaService.findByIdPizza(id));
+    model.addAttribute("pizza", pizzeriaService.getByIdPizza(id));
     return "pizzeria/edit";
   }
 
@@ -102,7 +102,7 @@ public class PizzeriaController {
   @PostMapping("/delete/{id}")
   public String delete(@PathVariable("id") Integer id) {
 
-    Pizza pizza = pizzeriaService.findByIdPizza(id);
+    Pizza pizza = pizzeriaService.getByIdPizza(id);
 
     for (Offer offerToDelete : pizza.getOffers()) {
       offersService.deleteOffer(offerToDelete);
@@ -116,7 +116,7 @@ public class PizzeriaController {
   @GetMapping("/{id}/offers")
   public String offer(@PathVariable("id") Integer id, Model model) {
     Offer offer = new Offer();
-    offer.setPizza(pizzeriaService.findByIdPizza(id));
+    offer.setPizza(pizzeriaService.getByIdPizza(id));
     model.addAttribute("offer", offer);
 
     return "offers/edit-or-create";

@@ -19,7 +19,7 @@ public class OffersService {
   }
 
   // Find by ID offer
-  public Offer findByIdOffer(Integer id) {
+  public Offer getByIdOffer(Integer id) {
     return offerRepository.findById(id).get();
   }
 

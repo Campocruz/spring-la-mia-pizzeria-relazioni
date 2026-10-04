@@ -35,7 +35,7 @@ public class OfferController {
 
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
-    Offer offer = offersService.findByIdOffer(id);
+    Offer offer = offersService.getByIdOffer(id);
     model.addAttribute("offer", offer);
     model.addAttribute("edit", true);
 
@@ -55,7 +55,7 @@ public class OfferController {
   @PostMapping("/delete/{id}")
   public String delete(@PathVariable("id") Integer id) {
 
-    Offer offer = offersService.findByIdOffer(id);
+    Offer offer = offersService.getByIdOffer(id);
     offersService.deleteOffer(offer);
 
     return "redirect:/pizze/" + offer.getPizza().getId();
