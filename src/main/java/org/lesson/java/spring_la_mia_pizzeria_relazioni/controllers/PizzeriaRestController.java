@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/pizze")
 public class PizzeriaRestController {
@@ -38,12 +40,12 @@ public class PizzeriaRestController {
   }
 
   @PostMapping
-  public ResponseEntity<Pizza> store(@RequestBody Pizza pizza) {
+  public ResponseEntity<Pizza> store(@Valid @RequestBody Pizza pizza) {
     return new ResponseEntity<Pizza>(pizzeriaService.savePizza(pizza), HttpStatus.OK);
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<Pizza> update(@RequestBody Pizza pizza, @PathVariable Integer id) {
+  public ResponseEntity<Pizza> update(@Valid @RequestBody Pizza pizza, @PathVariable Integer id) {
     pizza.setId(id);
     if (!pizzeriaService.existPizzaById(id)) {
       return new ResponseEntity<Pizza>(HttpStatus.NOT_FOUND);
