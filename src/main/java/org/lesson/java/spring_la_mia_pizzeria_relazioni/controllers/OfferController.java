@@ -33,7 +33,7 @@ public class OfferController {
   }
 
   @GetMapping("/edit/{id}")
-  private String edit(@PathVariable Integer id, Model model) {
+  public String edit(@PathVariable Integer id, Model model) {
     Offer offer = offerRepository.findById(id).get();
     model.addAttribute("offer", offer);
     model.addAttribute("edit", true);
@@ -42,7 +42,7 @@ public class OfferController {
   }
 
   @PostMapping("/edit/{id}")
-  private String update(@Valid @ModelAttribute("offer") Offer formOffer, BindingResult bindingResults, Model model) {
+  public String update(@Valid @ModelAttribute("offer") Offer formOffer, BindingResult bindingResults, Model model) {
 
     if (bindingResults.hasErrors()) {
       return "offers/edit-or-create";
